@@ -36,14 +36,18 @@ def ship_ai(ship, info, game_map):
             else:
                 ship.set_heading(np.random.random() * 360.0)
                 if all(d > 45 for d in distances):
-                    if len(info['bases']) < 10:
+                    if len(info['bases']) < 45:
                         ship.convert_to_base()
 
 
 def jet_ai(jet, info, game_map):
 
-    if jet.get_distance(jet.owner.x, jet.owner.y) > 80:
+    if "target" in info:
+        jet.goto(*info["target"])
+
+    elif jet.get_distance(jet.owner.x, jet.owner.y) > 80:
         jet.set_heading(jet.heading + 45)
+
         
 
 
